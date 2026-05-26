@@ -1,1 +1,450 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Felipe Shop Bot</title></head><body><h1>Felipe Shop Bot</h1><p>AI automation tool for TikTok Shop sellers.</p><ul><li><a href="/terms.html">Terms of Service</a></li><li><a href="/privacy.html">Privacy Policy</a></li></ul></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Felipe Shop Bot — Automação TikTok Shop com IA</title>
+  <meta name="description" content="Automação inteligente para vendedores TikTok Shop. Geração de conteúdo com IA, postagem automática e análise de tendências.">
+  <style>
+    :root {
+      --green-50: #f0fdf4;
+      --green-100: #dcfce7;
+      --green-200: #bbf7d0;
+      --green-400: #4ade80;
+      --green-500: #22c55e;
+      --green-600: #16a34a;
+      --green-700: #15803d;
+      --green-800: #166534;
+      --green-900: #14532d;
+      --green-950: #052e16;
+      --dark: #0a1f0f;
+      --dark-card: #0f2a15;
+      --dark-border: #1a4228;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--dark);
+      color: var(--green-50);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER / NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--dark-border);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 31, 15, 0.9);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+    .nav-logo-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green-400);
+      letter-spacing: -0.02em;
+    }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a {
+      color: var(--green-200);
+      text-decoration: none;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--green-400); }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse, rgba(34,197,94,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .logo-svg-container {
+      filter: drop-shadow(0 0 24px rgba(34,197,94,0.5));
+      animation: floatLogo 4s ease-in-out infinite;
+    }
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      color: var(--green-400);
+      margin-bottom: 1.5rem;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green-500);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.8); }
+    }
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #86efac 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--green-200);
+      opacity: 0.8;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+    }
+    .cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--green-500), var(--green-600));
+      color: white;
+      padding: 0.75rem 1.75rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(34,197,94,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(34,197,94,0.4); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--green-400);
+      border: 1px solid var(--dark-border);
+      padding: 0.75rem 1.75rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .btn-ghost:hover { background: rgba(34,197,94,0.08); border-color: var(--green-800); }
+
+    /* ── FEATURES GRID ── */
+    .section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      text-align: center;
+      color: var(--green-500);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      color: var(--green-50);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .feature-card {
+      background: var(--dark-card);
+      border: 1px solid var(--dark-border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green-500), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .feature-card:hover { border-color: var(--green-800); transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .feature-title { font-size: 1.05rem; font-weight: 700; color: var(--green-100); margin-bottom: 0.5rem; }
+    .feature-desc { font-size: 0.9rem; color: var(--green-200); opacity: 0.75; line-height: 1.6; }
+
+    /* ── PIPELINE ── */
+    .pipeline {
+      background: var(--dark-card);
+      border: 1px solid var(--dark-border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin: 3rem 0;
+    }
+    .pipeline-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green-400);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .pipeline-steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(34,197,94,0.08);
+      border: 1px solid var(--dark-border);
+      border-radius: 10px;
+      padding: 0.75rem 1.1rem;
+      font-size: 0.88rem;
+      color: var(--green-100);
+      white-space: nowrap;
+    }
+    .step-num {
+      background: var(--green-600);
+      color: white;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .arrow { color: var(--green-700); font-size: 1.2rem; }
+
+    /* ── STATUS BANNER ── */
+    .status-banner {
+      background: rgba(34,197,94,0.06);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 14px;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    .status-icon { font-size: 2rem; flex-shrink: 0; }
+    .status-text h3 { color: var(--green-400); font-size: 1rem; margin-bottom: 0.25rem; }
+    .status-text p { color: var(--green-200); opacity: 0.75; font-size: 0.88rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--dark-border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--green-200);
+      opacity: 0.6;
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--green-400); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .hero { padding: 3rem 1rem 2rem; }
+      .pipeline-steps { flex-direction: column; }
+      .arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="36" height="36" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#4ade80"/>
+          <stop offset="100%" stop-color="#16a34a"/>
+        </linearGradient>
+        <linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#22c55e"/>
+          <stop offset="100%" stop-color="#15803d"/>
+        </linearGradient>
+      </defs>
+      <circle cx="40" cy="40" r="38" fill="url(#lg1)"/>
+      <path d="M26 32 L28 54 L52 54 L54 32 Z" fill="white" opacity="0.95"/>
+      <path d="M33 32 C33 23 47 23 47 32" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="34" cy="43" r="5" fill="url(#lg2)"/>
+      <circle cx="46" cy="43" r="5" fill="url(#lg2)"/>
+      <circle cx="34" cy="43" r="2" fill="white"/>
+      <circle cx="46" cy="43" r="2" fill="white"/>
+    </svg>
+    <span class="nav-logo-text">Felipe Shop Bot</span>
+  </a>
+  <div class="nav-links">
+    <a href="/terms.html">Termos</a>
+    <a href="/privacy.html">Privacidade</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="logo-wrap">
+    <div class="logo-svg-container">
+      <svg width="100" height="100" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hlg1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#4ade80"/>
+            <stop offset="100%" stop-color="#16a34a"/>
+          </linearGradient>
+          <linearGradient id="hlg2" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#22c55e"/>
+            <stop offset="100%" stop-color="#15803d"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <circle cx="40" cy="40" r="38" fill="url(#hlg1)" filter="url(#glow)"/>
+        <path d="M24 30 L27 56 L53 56 L56 30 Z" fill="white" opacity="0.95"/>
+        <path d="M31 30 C31 20 49 20 49 30" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="34" cy="44" r="5.5" fill="url(#hlg2)"/>
+        <circle cx="46" cy="44" r="5.5" fill="url(#hlg2)"/>
+        <circle cx="34" cy="43" r="2.2" fill="white"/>
+        <circle cx="46" cy="43" r="2.2" fill="white"/>
+        <!-- circuit dots -->
+        <circle cx="20" cy="20" r="2" fill="#4ade80" opacity="0.6"/>
+        <circle cx="60" cy="20" r="2" fill="#4ade80" opacity="0.6"/>
+        <circle cx="60" cy="60" r="2" fill="#4ade80" opacity="0.6"/>
+        <circle cx="20" cy="60" r="2" fill="#4ade80" opacity="0.6"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="badge">
+    <span class="badge-dot"></span>
+    App em revisão TikTok · Em breve ativo
+  </div>
+
+  <h1>Automação TikTok Shop<br>com Inteligência Artificial</h1>
+  <p class="hero-sub">
+    O Felipe Shop Bot descobre produtos em alta, gera fotos profissionais com IA,
+    escreve legendas autênticas e posta no TikTok Shop automaticamente — enquanto você dorme.
+  </p>
+  <div class="cta-group">
+    <a href="/terms.html" class="btn-primary">Ver Termos de Uso</a>
+    <a href="/privacy.html" class="btn-ghost">Política de Privacidade</a>
+  </div>
+</section>
+
+<div class="section">
+  <!-- Pipeline automático -->
+  <div class="pipeline">
+    <div class="pipeline-title">⚡ Pipeline automático — roda sozinho 24/7</div>
+    <div class="pipeline-steps">
+      <div class="step"><span class="step-num">1</span> Descobre produto em alta</div>
+      <span class="arrow">→</span>
+      <div class="step"><span class="step-num">2</span> IA gera foto profissional</div>
+      <span class="arrow">→</span>
+      <div class="step"><span class="step-num">3</span> Escreve legenda autêntica</div>
+      <span class="arrow">→</span>
+      <div class="step"><span class="step-num">4</span> Posta no TikTok</div>
+      <span class="arrow">→</span>
+      <div class="step"><span class="step-num">5</span> Responde comentários</div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <p class="section-label">Funcionalidades</p>
+  <h2 class="section-title">O que o bot faz por você</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">📈</span>
+      <div class="feature-title">Tendências em Tempo Real</div>
+      <div class="feature-desc">Monitora Google Trends Brasil a cada 6 horas e seleciona os produtos com maior potencial viral.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🎨</span>
+      <div class="feature-title">Fotos Profissionais com IA</div>
+      <div class="feature-desc">ComfyUI + EpicRealism XL geram fotos de produto em estúdio virtual — qualidade comercial, custo zero.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">✍️</span>
+      <div class="feature-title">Legendas Autênticas em PT-BR</div>
+      <div class="feature-desc">IA escreve como uma pessoa real indicando o produto. Natural, com emojis e hashtags trending.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📱</span>
+      <div class="feature-title">Postagem Automática TikTok</div>
+      <div class="feature-desc">Publica direto no TikTok Shop via API oficial. Até 4 posts por dia sem nenhuma intervenção manual.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">💬</span>
+      <div class="feature-title">Bot de Comentários Inteligente</div>
+      <div class="feature-desc">Detecta perguntas de compra e responde automaticamente com contexto do produto. Sem repetir respostas.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🛡️</span>
+      <div class="feature-title">Privacidade & Segurança</div>
+      <div class="feature-desc">Rodando 100% localmente. Nenhum dado pessoal é coletado. Integração oficial com TikTok API.</div>
+    </div>
+  </div>
+
+  <!-- Status -->
+  <div class="status-banner">
+    <span class="status-icon">🟠</span>
+    <div class="status-text">
+      <h3>App em revisão pela TikTok</h3>
+      <p>O "Felipe Shop Bot" foi submetido para aprovação na TikTok Developer Platform. Em breve o sistema estará 100% operacional e postando automaticamente.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Felipe Shop Bot · Feito com IA · 
+    <a href="/terms.html">Termos</a> · 
+    <a href="/privacy.html">Privacidade</a>
+  </p>
+</footer>
+
+</body>
+</html>
