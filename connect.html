@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conectar TikTok — Felipe Shop Bot</title>
+  <style>
+    :root{--g400:#4ade80;--g500:#22c55e;--g600:#16a34a;--dark:#0a1f0f;--card:#0f2a15;--border:#1a4228}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:system-ui,sans-serif;background:var(--dark);color:#f0fdf4;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem}
+    nav{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;gap:.75rem;padding:1rem 2rem;border-bottom:1px solid var(--border);background:rgba(10,31,15,.95)}
+    nav a{color:var(--g400);text-decoration:none;font-weight:700;font-size:1rem;display:flex;align-items:center;gap:.5rem}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:3rem;max-width:520px;width:100%;text-align:center;margin-top:4rem}
+    .logo{font-size:3.5rem;margin-bottom:1.5rem}
+    h1{font-size:1.8rem;font-weight:800;color:var(--g400);margin-bottom:.75rem}
+    p{color:#bbf7d0;opacity:.8;line-height:1.6;margin-bottom:1.5rem;font-size:.95rem}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--g500),var(--g600));color:white;padding:.9rem 2rem;border-radius:12px;text-decoration:none;font-weight:700;font-size:1rem;transition:all .2s;box-shadow:0 4px 20px rgba(34,197,94,.3);cursor:pointer;border:none;width:100%;justify-content:center}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(34,197,94,.4)}
+    .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+    .status{margin-top:1.5rem;padding:1rem;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:10px;font-size:.85rem;color:#86efac;display:none}
+    .steps{text-align:left;margin:1.5rem 0}
+    .step{display:flex;gap:.75rem;margin-bottom:.75rem;align-items:flex-start}
+    .step-num{background:var(--g600);color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:1px}
+    .step-text{color:#bbf7d0;opacity:.8;font-size:.9rem;line-height:1.5}
+    .warning{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.2);border-radius:10px;padding:1rem;font-size:.82rem;color:#fde68a;margin-top:1rem;text-align:left}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/">
+    <svg width="28" height="28" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="40" r="38" fill="#22c55e"/>
+      <path d="M26 32 L28 54 L52 54 L54 32 Z" fill="white" opacity=".95"/>
+      <path d="M33 32 C33 23 47 23 47 32" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="34" cy="43" r="5" fill="#15803d"/><circle cx="46" cy="43" r="5" fill="#15803d"/>
+      <circle cx="34" cy="43" r="2" fill="white"/><circle cx="46" cy="43" r="2" fill="white"/>
+    </svg>
+    Felipe Shop Bot
+  </a>
+</nav>
+
+<div class="card">
+  <div class="logo">🔑</div>
+  <h1>Conectar conta TikTok</h1>
+  <p>Clique abaixo para autorizar o Felipe Shop Bot a postar em sua conta TikTok automaticamente.</p>
+
+  <div class="steps">
+    <div class="step"><span class="step-num">1</span><span class="step-text">Clique em "Autorizar TikTok"</span></div>
+    <div class="step"><span class="step-num">2</span><span class="step-text">Faça login na sua conta TikTok e aprove as permissões</span></div>
+    <div class="step"><span class="step-num">3</span><span class="step-text">Você será redirecionado de volta — o token será salvo automaticamente</span></div>
+    <div class="step"><span class="step-num">4</span><span class="step-text">O bot começa a postar sozinho!</span></div>
+  </div>
+
+  <button class="btn" id="authBtn" onclick="startOAuth()">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.73a8.19 8.19 0 004.78 1.52V6.8a4.85 4.85 0 01-1.01-.11z"/></svg>
+    Autorizar TikTok
+  </button>
+
+  <div class="warning">
+    ⚠️ <strong>Importante:</strong> Esta página funciona apenas quando o n8n está rodando em <code>localhost:5678</code>. Execute <code>iniciar-agente.ps1</code> antes de clicar.
+  </div>
+
+  <div class="status" id="status"></div>
+</div>
+
+<script>
+function startOAuth() {
+  const btn = document.getElementById('authBtn');
+  btn.disabled = true;
+  btn.textContent = 'Abrindo TikTok...';
+
+  const params = new URLSearchParams({
+    client_key: 'awwjjqmpyuhha43k',
+    response_type: 'code',
+    scope: 'user.info.basic,video.publish,video.upload,comment.list,comment.list.manage',
+    redirect_uri: 'http://localhost:5678/webhook/tiktok-oauth-callback',
+    state: Math.random().toString(36).substring(2)
+  });
+
+  window.location.href = 'https://www.tiktok.com/v2/auth/authorize/?' + params.toString();
+}
+
+// Verificar se voltou com sucesso
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('success') === '1') {
+  document.getElementById('status').style.display = 'block';
+  document.getElementById('status').textContent = '✅ TikTok conectado com sucesso! O bot está ativo.';
+}
+</script>
+</body>
+</html>
